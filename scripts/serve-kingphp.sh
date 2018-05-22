@@ -17,26 +17,22 @@ fi
 block="server {
     listen ${3:-80};
     listen ${4:-443} ssl http2;
-    server_name $1;
-    root \"$2\";
-
-    index index.html index.htm index.php;
+    server_name $1;   
 
     charset utf-8;
 
     location / {
-        if (-f \$request_filename) {
-         expires max;
-         break;
-       }
+	   root \"$2\";
 
-       #if (!-e \$request_filename) {
-       #    rewrite ^/(.*)$ /index.php/$1 last;
-       #}
-        if (\$request_filename !~ (js|css|images|robots/.txt|index/.php.*) ) {
-             rewrite ^/(.*)$ /index.php?\$1 last;
-            break;
-        }
+       index index.html index.htm index.php;
+	
+       if (-e \$request_filename) {
+			break;
+		}
+		if (!-e \$request_filename) {
+			rewrite ^/(.*)$ /index.php/\$1 last;
+			break;
+		}
     }
 
     location = /favicon.ico { access_log off; log_not_found off; }
@@ -49,14 +45,22 @@ block="server {
 
     client_max_body_size 100m;
 
-    location ~ \.php$ {
-	    root \"$2\";
-        fastcgi_pass unix:/var/run/php/php5.6-fpm.sock;       
-        fastcgi_index index.php;
-        fastcgi_param  SCRIPT_FILENAME  \$document_root\$fastcgi_script_name;
-        fastcgi_param  PATH_INFO  \$fastcgi_path_info;
-        fastcgi_split_path_info ^(.+\.php)(.*)$;
-        include fastcgi_params;
+    location ~ \.php {	
+        root \"$2\";	
+        try_files \$uri =404;	
+	    fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;
+		 set \$path_info \"\";
+                set \$real_script_name \$fastcgi_script_name;
+                if (\$fastcgi_script_name ~ \"^(.+\.php)(.*)\$\") {
+                        set \$real_script_name \$1;
+			            set \$path_info \$2;
+                }
+                #include fastcgi.conf;
+				include fastcgi_params;
+                fastcgi_param SCRIPT_FILENAME \$document_root\$real_script_name;
+                fastcgi_param SCRIPT_NAME \$real_script_name;
+                fastcgi_param PATH_INFO \$path_info;
+        
 
         fastcgi_intercept_errors off;
         fastcgi_buffer_size 16k;

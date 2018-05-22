@@ -25,18 +25,8 @@ block="server {
     charset utf-8;
 
     location / {
-        if (-f \$request_filename) {
-         expires max;
-         break;
-       }
-
-       #if (!-e \$request_filename) {
-       #    rewrite ^/(.*)$ /index.php/$1 last;
-       #}
-        if (\$request_filename !~ (js|css|images|robots/.txt|index/.php.*) ) {
-             rewrite ^/(.*)$ /index.php?\$1 last;
-            break;
-        }
+            index  index.html index.htm index.php l.php;
+           autoindex  on;
     }
 
     location = /favicon.ico { access_log off; log_not_found off; }
