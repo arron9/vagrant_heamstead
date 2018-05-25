@@ -26,7 +26,7 @@ block="server {
 
     location / {
             index  index.html index.htm index.php l.php;
-           autoindex  on;
+           #autoindex  on;
     }
 
     location = /favicon.ico { access_log off; log_not_found off; }
@@ -54,7 +54,7 @@ block="server {
         fastcgi_connect_timeout 300;
         fastcgi_send_timeout 300;
         fastcgi_read_timeout 300;
-    }
+    }															
 
     location ~ /\.ht {
         deny all;
