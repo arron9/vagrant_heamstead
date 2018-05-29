@@ -24,16 +24,17 @@ block="server {
 
     charset utf-8;
 
-    location / {
+    location / {		
+		
         if (-f \$request_filename) {
-         expires max;
+         expires off;
          break;
        }
 
        #if (!-e \$request_filename) {
        #    rewrite ^/(.*)$ /index.php/$1 last;
        #}
-        if (\$request_filename !~ (js|css|images|robots/.txt|index/.php.*) ) {
+        if (\$request_filename !~ (js|css|images|robots/.txt|index/.php.*) ) {			
              rewrite ^/(.*)$ /index.php?\$1 last;
             break;
         }
@@ -58,12 +59,12 @@ block="server {
         fastcgi_split_path_info ^(.+\.php)(.*)$;
         include fastcgi_params;
 
-        fastcgi_intercept_errors off;
-        fastcgi_buffer_size 16k;
-        fastcgi_buffers 4 16k;
-        fastcgi_connect_timeout 300;
-        fastcgi_send_timeout 300;
-        fastcgi_read_timeout 300;
+        #fastcgi_intercept_errors off;
+        #fastcgi_buffer_size 16k;
+        #fastcgi_buffers 4 16k;
+        #fastcgi_connect_timeout 300;
+        #fastcgi_send_timeout 300;
+        #fastcgi_read_timeout 300;
     }
 
     location ~ /\.ht {
