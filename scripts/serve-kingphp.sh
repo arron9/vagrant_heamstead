@@ -48,7 +48,7 @@ block="server {
     location ~ \.php {	
         root \"$2\";	
         try_files \$uri =404;	
-	    fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;
+	    fastcgi_pass unix:/var/run/php/php$5-fpm.sock;
 		 set \$path_info \"\";
                 set \$real_script_name \$fastcgi_script_name;
                 if (\$fastcgi_script_name ~ \"^(.+\.php)(.*)\$\") {
