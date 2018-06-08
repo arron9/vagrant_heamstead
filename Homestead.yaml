@@ -1,0 +1,88 @@
+---
+ip: "192.168.10.10"
+memory: 3048
+cpus: 1
+provider: virtualbox
+
+authorize: ~/.ssh/id_rsa.pub
+
+keys:
+    - ~/.ssh/id_rsa
+
+folders:
+    - map: F:/webroot
+      to: /home/vagrant/Code
+    - map: F:/pythonpr
+      to: /home/vagrant/python_project
+
+sites:
+    - map: phpdebug.com
+      to: /home/vagrant/Code/phpdebug
+      php: "7.1" 
+      type: php 
+    - map: dev.passport.tmqmqj.com
+      to: /home/vagrant/Code/mg_official_website/passport.tmqmqj.com/cipher.tmqmqj.com
+      type: php 
+    - map: dev.qmqj2.yulunky.com dev.m.yulunky.com
+      to: /home/vagrant/Code/mg_adver/ios/app/public
+      type: advert 
+    - map: dev.ad.mg3721.com 
+      to: /home/vagrant/Code/mg_adver/android/ad-webapp/public
+      type: php 
+    - map: dev.adadmin.mg3721.com 
+      to: /home/vagrant/Code/mg_adver/android/ad-admin
+      type: ci 
+    - map: dev.admobile2.xy.com
+      to: /home/vagrant/Code/mg_adver/ios/admin2
+      type: ci 
+    - map: dev.mu.xy.com
+      to: /home/vagrant/Code/mg_official_website/mu.xy.com
+      type: ci 
+    - map: dev.hz.xy.com
+      to: /home/vagrant/Code/mg_official_website/hz.xy.com
+      type: ci 
+    - map: dev.wzcq.xy.com
+      to: /home/vagrant/Code/mg_official_website/wzcq.xy.com
+      type: ci 
+    - map: dev.video.mg3721.com
+      to: /home/vagrant/Code/mg-video/public
+      type: kingphp 
+      php: "7.1" 
+    - map: dev.api.mg3721.com
+      to: /home/vagrant/Code/mg_platorm/MgAPI/public
+      type: kingphp 
+      php: "7.1" 
+    - map: dev.adapi.mg3721.com
+      to: /home/vagrant/Code/mg_platorm/adapi.mg3721.com
+      type: ci 
+    - map: dev.yygame.mg3721.com
+      to: /home/vagrant/Code/mg_platorm/yygame.mg3721.com
+      type: ci 
+    - map: dev.game.xy.com
+      to: /home/vagrant/Code/mg_platorm/game.xy.com
+      type: ci 
+    - map: dev.admin.game.xy.com
+      to: /home/vagrant/Code/mg_platorm/admin.game.xy.com
+      type: ci 
+    - map: dev.admin.mg3721.com 
+      to: /home/vagrant/Code/mg_platorm/admin.mg3721.com
+      type: ci 
+    - map: dev.admin.ios-user.xy.com
+      to: /home/vagrant/Code/mg_official_website/admin.ios-user.xy.com
+      type: ci 
+
+      #databases:
+      #- homestead
+
+# blackfire:
+#     - id: foo
+#       token: bar
+#       client-id: foo
+#       client-token: bar
+
+# ports:
+#     - send: 50000
+#       to: 5000
+#     - send: 7777
+#       to: 777
+#       protocol: udp
